@@ -4,6 +4,23 @@ import db_conn
 from flask import Flask, abort, g, jsonify, request
 app = Flask(__name__)
 
+@app.route('/call', methods=['POST'])
+def call():
+    # Slack Webhook will just send a generic message body,
+    # so we need to parse that and turn it into the
+    # desired command + arguments
+    with app.app_context():
+        db = get_db()
+
+    return jsonify({'success': True})
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = db_conn.get_db()
+        db_conn.init_db()
+    return db
+
 @app.route('/user/add', methods=['POST'])
 def add_user():
     print(request.json)
