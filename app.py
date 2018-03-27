@@ -12,7 +12,9 @@ def call():
     with app.app_context():
         db = get_db()
 
-    return jsonify({'success': True})
+        msg = request.form.get('text')
+
+    return jsonify({'success': True, 'msg': msg})
 
 def get_db():
     db = getattr(g, '_database', None)
