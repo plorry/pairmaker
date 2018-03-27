@@ -14,7 +14,7 @@ def call():
 
         msg = request.form.get('text')
 
-    return jsonify({'success': True, 'msg': msg})
+    return jsonify({'success': True, 'text': msg})
 
 def get_db():
     db = getattr(g, '_database', None)
