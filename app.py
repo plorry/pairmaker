@@ -18,7 +18,7 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = db_conn.get_db()
-        db_conn.init_db()
+        db_conn.init_db(db)
     return db
 
 @app.route('/user/add', methods=['POST'])
