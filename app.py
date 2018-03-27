@@ -9,10 +9,13 @@ def call():
     # Slack Webhook will just send a generic message body,
     # so we need to parse that and turn it into the
     # desired command + arguments
+    msg = None
+
     with app.app_context():
         db = get_db()
 
-        msg = request.form.get('text')
+        if not request.form.get('user_name') == 'impnut':
+            msg = request.form.get('text')
 
     return jsonify({'success': True, 'text': msg})
 
