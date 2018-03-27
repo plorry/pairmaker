@@ -15,7 +15,7 @@ def call():
         db = get_db()
 
         if not request.form.get('user_name') == 'impnut':
-            msg = request.form.get('text')
+            msg = ' '.join(request.form.get('text').split(' ')[1:])
 
     return jsonify({'success': True, 'text': msg})
 
