@@ -9,15 +9,24 @@ def call():
     # Slack Webhook will just send a generic message body,
     # so we need to parse that and turn it into the
     # desired command + arguments
-    msg = None
+    r = {}
 
     with app.app_context():
         db = get_db()
 
-        if not request.form.get('user_name') == 'impnut':
-            msg = ' '.join(request.form.get('text').split(' ')[1:])
+        args = request.form.get('text').split(' ')
+        command = args[1]
 
-    return jsonify({'success': True, 'text': msg})
+        if command == 'add':
+            username = args[2]
+            r = pairmaker.add_user(db, username)
+        elif command == 'remove':
+            username = args[2]
+            r = pairmaker.remove_user(db, username)
+        elif command == 'list':
+            r = pairmaker.user_list(db)
+
+    return jsonify(r)
 
 def get_db():
     db = getattr(g, '_database', None)
