@@ -79,5 +79,5 @@ def user_list(db):
     c = db.cursor()
     c.execute('SELECT name, office FROM users')
     return {
-        'text': ' '.join([f'{u[0]} ({u[1]})' for u in c.fetchall()])
+        'text': '\n'.join([f'{u[0]} ({u[1]})' for u in c.fetchall()])
     }
