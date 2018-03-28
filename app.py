@@ -19,7 +19,8 @@ def call():
 
         if command == 'add':
             username = args[2]
-            r = pairmaker.add_user(db, username)
+            office = args[3]
+            r = pairmaker.add_user(db, username, office)
         elif command == 'remove':
             username = args[2]
             r = pairmaker.remove_user(db, username)
@@ -34,29 +35,6 @@ def get_db():
         db = g._database = db_conn.get_db()
         db_conn.init_db(db)
     return db
-
-@app.route('/user/add', methods=['POST'])
-def add_user():
-    print(request.json)
-
-    username = request.json.get('username')
-    r = pairmaker.add_user(g.db, username)
-
-    return jsonify(r)
-
-@app.route('/user/<username>/delete', methods=['DELETE'])
-def remove_user(username):
-    r = pairmaker.remove_user(g.db, username)
-    return jsonify(r)
-
-@app.route('/pairup', methods=['GET'])
-def make_pair():
-    pairmaker.make_pair(g.db)
-
-@app.route('/user', methods=['GET'])
-def user_list():
-    users = pairmaker.user_list(g.db)
-    return jsonify({'users': users})
 
 if __name__ == '__main__':
     print('starting app')
