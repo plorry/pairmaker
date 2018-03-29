@@ -1,5 +1,5 @@
 # pairmaker
-Flask app to make random pairs of users &amp; optimize for reduced duplicates
+Flask app to make ~random~ pairs of users &amp; optimize for reduced duplicates
 
 ## Todo: write the dang README
 
