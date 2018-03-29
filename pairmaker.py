@@ -1,4 +1,5 @@
 from operator import itemgetter
+import time
 
 def add_user(db, username, office):
     c = db.cursor()
