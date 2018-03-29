@@ -98,6 +98,11 @@ def get_all_users(db):
 
 def user_list(db):
     c = db.cursor()
+
+    c.execute('SELECT * FROM history')
+    print(c.fetchall())
+
+
     c.execute('SELECT name, office FROM users')
     return {
         'text': '\n'.join([f'{u[0]} ({u[1]})' for u in c.fetchall()])
