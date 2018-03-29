@@ -37,10 +37,13 @@ def remove_user(db, username):
 def make_pair(db, id_tuple):
     count = get_history(db, id_tuple)
 
+    print(f"History of user {id_tuple[0]} and {id_tuple[1]}: {count}")
+
     c = db.cursor()
     c.execute('UPDATE history SET count=? WHERE user_1=? AND user_2=?',
         [count + 1, id_tuple[0], id_tuple[1]]
     )
+    db.commit()
 
 def get_lowest_user(db):
     c = db.cursor()
