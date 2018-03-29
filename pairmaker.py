@@ -50,13 +50,13 @@ def get_lowest_user(db):
 def get_ideal_partner(db, user_id):
     c = db.cursor()
     c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE (h.user_1=u.id AND h.user_2=?) OR (h.user_1=? AND h.user_2=u.id)) count FROM users u WHERE u.id != ? ORDER BY count ASC LIMIT 1', [user_id, user_id, user_id])
-    return c.fetchone()[0]
+    return c.fetchone()
 
 def get_user_pair_count(db, user_id):
     c = db.cursor()
     c.execute('SELECT SUM(count) FROM history WHERE user_1=? OR user_2=?', [user_id, user_id])
 
-    return c.fetchone()[0]
+    return c.fetchone()
 
 def get_history(db, id_tuple):
     c = db.cursor()
