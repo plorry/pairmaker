@@ -43,11 +43,13 @@ def make_pair(db, id_tuple):
     c.execute('UPDATE history SET count=? WHERE user_1=? AND user_2=?',
         [count + 1, id_tuple[0], id_tuple[1]]
     )
+    now = int(time.time())
+    c.execute('UPDATE users SET last_pair=? WHERE id=? OR id=?', [now, id_tuple[0], id_tuple[1]])
     db.commit()
 
 def get_lowest_user(db):
     c = db.cursor()
-    c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE h.user_1=u.id OR h.user_2=u.id) count FROM users u ORDER BY count ASC')
+    c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE h.user_1=u.id OR h.user_2=u.id) count FROM users u ORDER BY count ASC, last_pair ASC')
     f = c.fetchall()
 
     print(f)
@@ -56,7 +58,7 @@ def get_lowest_user(db):
 
 def get_ideal_partner(db, user_id):
     c = db.cursor()
-    c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE (h.user_1=u.id AND h.user_2=?) OR (h.user_1=? AND h.user_2=u.id)) count FROM users u WHERE u.id != ? ORDER BY count ASC', [user_id, user_id, user_id])
+    c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE (h.user_1=u.id AND h.user_2=?) OR (h.user_1=? AND h.user_2=u.id)) count FROM users u WHERE u.id != ? ORDER BY count ASC, last_pair ASC', [user_id, user_id, user_id])
     f = c.fetchall()
 
     print(f)
