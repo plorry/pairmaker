@@ -50,7 +50,7 @@ def make_pair(db, id_tuple):
 
 def get_lowest_user(db):
     c = db.cursor()
-    c.execute('SELECT u.id, u.name, u.office, (SELECT sum(h.count) FROM history h WHERE h.user_1=u.id OR h.user_2=u.id) count FROM users u ORDER BY count ASC, last_pair ASC')
+    c.execute('SELECT u.id, u.name, u.office FROM users u ORDER BY last_pair ASC')
     f = c.fetchall()
 
     print(f)
@@ -59,7 +59,7 @@ def get_lowest_user(db):
 
 def get_ideal_partner(db, user_id, office):
     c = db.cursor()
-    c.execute('SELECT u.id, u.name, (SELECT sum(h.count) FROM history h WHERE (h.user_1=u.id AND h.user_2=?) OR (h.user_1=? AND h.user_2=u.id)) count FROM users u WHERE u.id != ? AND u.office !=? ORDER BY count ASC, last_pair ASC', [user_id, user_id, user_id, office])
+    c.execute('SELECT u.id, u.name, (SELECT h.last_pair FROM history h WHERE (h.user_1=u.id AND h.user_2=?) OR (h.user_1=? AND h.user_2=u.id)) last FROM users u WHERE u.id != ? AND u.office !=? ORDER BY last ASC', [user_id, user_id, user_id, office])
     f = c.fetchall()
 
     print(f)
