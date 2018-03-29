@@ -26,6 +26,8 @@ def call():
             r = pairmaker.remove_user(db, username)
         elif command == 'list':
             r = pairmaker.user_list(db)
+        elif command == 'pairup':
+            r = pairmaker.pairup(db)
 
     return jsonify(r)
 
