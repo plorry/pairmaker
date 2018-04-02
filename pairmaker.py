@@ -95,7 +95,7 @@ def pairup(db):
     print(u2)
     make_pair(db, mk_id_tuple(u1[0], u2[0]))
 
-    return {'text': f'The next pairup is {u1[1]} and {u2[1]}!'}
+    return {'text': f'The next pairup is {u1[1]} and {u2[1]}!\nReach out to each other in Slack and setup a virtual meeting this week!'}
 
 def get_all_users(db):
     c = db.cursor()
