@@ -1,6 +1,11 @@
 from operator import itemgetter
 import time
 
+INFO_MESSAGE = ('You\'ve been paired up! Reach out to each other on Slack to arrange a convenient '
+    'time (not more than 30 minutes necessary) to connect.\nUse this time to get to know each '
+    'other! Check in and see how you\'re doing; learn about each other.\nThere\'s no set agenda, '
+    'and no notes or outcome required. Have fun, you two!')
+
 def add_user(db, username, office):
     c = db.cursor()
     c.execute('SELECT * FROM users WHERE name=?', [username,])
@@ -95,7 +100,7 @@ def pairup(db):
     print(u2)
     make_pair(db, mk_id_tuple(u1[0], u2[0]))
 
-    return {'text': f'The next pairup is {u1[1]} and {u2[1]}!\nReach out to each other in Slack and setup a virtual meeting this week!'}
+    return {'text': f'The next pairup is {u2[1]} and {u2[1]}!\n{INFO_MESSAGE}'}
 
 def get_all_users(db):
     c = db.cursor()
