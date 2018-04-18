@@ -1,7 +1,7 @@
 import sqlite3
 
-def get_db():
-    return sqlite3.connect('pairmaker.db')
+def get_db(db_name):
+    return sqlite3.connect(f'{db_name}.db')
 
 def init_db(db):
     db.execute('CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, name text NOT NULL, office text, last_pair integer default 0)')

@@ -12,7 +12,8 @@ def call():
     r = {}
 
     with app.app_context():
-        db = get_db()
+        channel_name = request.form.get('channel_id')
+        db = get_db(channel_name)
 
         args = request.form.get('text').split(' ')
         command = args[1]
@@ -31,10 +32,11 @@ def call():
 
     return jsonify(r)
 
-def get_db():
-    db = getattr(g, '_database', None)
+def get_db(channel_name):
+    db = getattr(g, f'_database_{channel_name}', None)
     if db is None:
-        db = g._database = db_conn.get_db()
+        db = db_conn.get_db(channel_name)
+        setattr(g, f'_database_{channel_name}', db)
         db_conn.init_db(db)
     return db
 
