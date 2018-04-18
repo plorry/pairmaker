@@ -100,7 +100,7 @@ def pairup(db):
     print(u2)
     make_pair(db, mk_id_tuple(u1[0], u2[0]))
 
-    return {'text': f'The next pairup is {u2[1]} and {u2[1]}!\n{INFO_MESSAGE}'}
+    return {'text': f'The next pairup is {u1[1]} and {u2[1]}!\n{INFO_MESSAGE}'}
 
 def get_all_users(db):
     c = db.cursor()
