@@ -28,7 +28,7 @@ def call():
         elif command == 'list':
             r = pairmaker.user_list(db)
         elif command == 'pairup':
-            r = pairmaker.pairup(db) if len(args) == 2 else pairmaker.pairup(db, args[3])
+            r = pairmaker.pairup(db) if len(args) == 2 else pairmaker.pairup(db, args[2])
 
     return jsonify(r)
 
