@@ -93,9 +93,10 @@ def get_history(db, id_tuple):
 
     return count
 
-def pairup(db):
-    u1 = get_lowest_user(db)
-    print(u1)
+def pairup(db, u1=None):
+    if u1 is None:
+        u1 = get_lowest_user(db)
+        print(u1)
     u2 = get_ideal_partner(db, u1[0], u1[2])
     print(u2)
     make_pair(db, mk_id_tuple(u1[0], u2[0]))
