@@ -108,8 +108,11 @@ def pairup(db, user_1=None):
 def get_user_id(db, username):
     c = db.cursor()
     c.execute('SELECT id, name, office FROM users WHERE name=?', [username,])
+    f = c.fetchall()
 
-    return c.fetchone()
+    print(f)
+
+    return f[0]
 
 def get_all_users(db):
     c = db.cursor()
