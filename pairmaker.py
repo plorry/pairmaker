@@ -93,15 +93,23 @@ def get_history(db, id_tuple):
 
     return count
 
-def pairup(db, u1=None):
-    if u1 is None:
+def pairup(db, user_1=None):
+    if user_1 is None:
         u1 = get_lowest_user(db)
         print(u1)
+    else:
+        u1 = get_user_id(db, user_1)
     u2 = get_ideal_partner(db, u1[0], u1[2])
     print(u2)
     make_pair(db, mk_id_tuple(u1[0], u2[0]))
 
     return {'text': f'The next pairup is {u1[1]} and {u2[1]}!\n{INFO_MESSAGE}'}
+
+def get_user_id(db, username):
+    c = db.cursor()
+    c.execute('SELECT id FROM users WHERE name=?', [username,])
+
+    return c.fetchone()[0]
 
 def get_all_users(db):
     c = db.cursor()
