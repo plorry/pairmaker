@@ -35,6 +35,8 @@ def mk_id_tuple(id1, id2):
 
 def remove_user(db, username):
     c = db.cursor()
+    user_id = get_user_id(db, username)
+    c.execute('DELETE FROM history WHERE user_1=? OR user_2=?', [user_id, user_id])
     c.execute('DELETE FROM users WHERE name=?', [username,])
     db.commit()
 
